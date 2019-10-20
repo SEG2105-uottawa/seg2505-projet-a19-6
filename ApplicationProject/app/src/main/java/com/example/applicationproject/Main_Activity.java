@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -16,6 +17,7 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
 
     EditText etName,etUsername,etPassword,etIdentifier;
     Button btnSave, btnLogin;
+    TextView tvIdentifier, tvRegister;
     DatabaseReference reff;
     User user;
 
@@ -30,15 +32,25 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
         etIdentifier = (EditText)findViewById(R.id.etIdentifier);
         btnSave = (Button)findViewById(R.id.btnSave);
         btnLogin = (Button)findViewById(R.id.btnLogin);
+        tvIdentifier = (TextView)findViewById(R.id.tvIdentifier);
+        tvRegister = (TextView)findViewById(R.id.tvRegister);
         user = new User();
         reff = FirebaseDatabase.getInstance().getReference().child("User");
         btnSave.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
+
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.btnLogin:
+                Toast.makeText(Main_Activity.this, "Going to login", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, Login.class));
+
+                break;
+
             case R.id.btnSave:
                 int id = Integer.parseInt(etIdentifier.getText().toString().trim());
                 user.setName(etName.getText().toString().trim());
@@ -52,10 +64,7 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(Main_Activity.this, "Data inserted",Toast.LENGTH_LONG).show();
                 break;
 
-            case R.id.btnLogin:
-                startActivity(new Intent(this, Login.class));
 
-                break;
         }
     }
 }
