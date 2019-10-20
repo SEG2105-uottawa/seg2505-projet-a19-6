@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 reff = FirebaseDatabase.getInstance().getReference().child("User").child(etUsername.getText().toString().trim());
-                reff.addValueEventListener(new ValueEventListener() {
+                reff.addValueEventListener(new ValueEventListener()) {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
