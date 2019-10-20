@@ -1,0 +1,61 @@
+package com.example.applicationproject;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+public class Main_Activity extends AppCompatActivity implements View.OnClickListener {
+
+    EditText etName,etUsername,etPassword,etIdentifier;
+    Button btnSave, btnLogin;
+    DatabaseReference reff;
+    User user;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_activity);
+
+        etName = (EditText)findViewById(R.id.etName);
+        etUsername = (EditText)findViewById(R.id.etUsername);
+        etPassword = (EditText)findViewById(R.id.etPassword);
+        etIdentifier = (EditText)findViewById(R.id.etIdentifier);
+        btnSave = (Button)findViewById(R.id.btnSave);
+        btnLogin = (Button)findViewById(R.id.btnLogin);
+        user = new User();
+        reff = FirebaseDatabase.getInstance().getReference().child("User");
+        btnSave.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnSave:
+                int id = Integer.parseInt(etIdentifier.getText().toString().trim());
+                user.setName(etName.getText().toString().trim());
+                user.setUsername(etUsername.getText().toString().trim());
+                user.setPassword(etPassword.getText().toString().trim());
+                user.setIdentifier(id);
+                reff.child(etUsername.getText().toString().trim()).setValue(user);
+
+
+               // reff.push().setValue(user);
+                Toast.makeText(Main_Activity.this, "Data inserted",Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.btnLogin:
+                startActivity(new Intent(this, Login.class));
+
+                break;
+        }
+    }
+}
