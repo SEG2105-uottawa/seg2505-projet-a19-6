@@ -1,3 +1,7 @@
+/* *********************************************
+USER CLASS WITH CONSTRUCTOR AND GETTERS/SETTERS
+ ************************************************/
+
 package com.example.applicationproject;
 
 public class User {
@@ -6,9 +10,12 @@ public class User {
     private String password;
     private int identifier;
 
+
     public User() {
     }
 
+
+    //Getters/Setters
     public String getName() {
         return name;
     }

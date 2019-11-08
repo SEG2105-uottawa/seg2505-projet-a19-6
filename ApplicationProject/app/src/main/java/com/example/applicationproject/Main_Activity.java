@@ -1,3 +1,8 @@
+/* ************************************************************
+REGISTRATION PAGE. CREATES USERS AND ADDS THEM TO THE DATABASE
+ **************************************************************/
+
+
 package com.example.applicationproject;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,9 +41,10 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
         tvRegister = (TextView)findViewById(R.id.tvRegister);
         user = new User();
         reff = FirebaseDatabase.getInstance().getReference().child("User");
+
+        //My first way of setting ClickListener. Not updated because not necessary
         btnSave.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
-
 
     }
 
@@ -52,17 +58,25 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.btnSave:
-                int id = Integer.parseInt(etIdentifier.getText().toString().trim());
-                user.setName(etName.getText().toString().trim());
-                user.setUsername(etUsername.getText().toString().trim());
-                user.setPassword(etPassword.getText().toString().trim());
-                user.setIdentifier(id);
-                reff.child(etUsername.getText().toString().trim()).setValue(user);
+
+                try {
+                    int id = Integer.parseInt(etIdentifier.getText().toString().trim());
+                    user.setName(etName.getText().toString().trim());
+                    user.setUsername(etUsername.getText().toString().trim());
+                    user.setPassword(etPassword.getText().toString().trim());
+                    user.setIdentifier(id);
+                    reff.child(etUsername.getText().toString().trim()).setValue(user);
+                }
+                catch(Exception e){
+                    Toast.makeText(Main_Activity.this, "Data is wrong or missing",Toast.LENGTH_LONG).show();
+                    break;
+                }
 
 
-               // reff.push().setValue(user);
                 Toast.makeText(Main_Activity.this, "Data inserted",Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, Login.class));
                 break;
+
 
 
         }
