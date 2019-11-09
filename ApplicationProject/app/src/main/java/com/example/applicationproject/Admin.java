@@ -87,7 +87,7 @@ public class Admin extends AppCompatActivity{
                     return;
                 }
 
-                //reff.child(service).setValue(service); //Adding the service to firebase
+                reff.child(service).setValue(service); //Adding the service to firebase
             }
         });
 

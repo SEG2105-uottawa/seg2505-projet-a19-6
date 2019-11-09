@@ -28,6 +28,18 @@ public class Welcome extends AppCompatActivity{
         }
     }
 
+    public int identify(String id){
+        if (id.equals("1")){
+            System.out.println("You are registered as a Client!");
+            return 1;
+        } else if (id.equals("2")) {
+            System.out.println("You are registered as an employee!");
+            return 1;
+
+        }
+        return 0;
+    }
+
 
 
 
