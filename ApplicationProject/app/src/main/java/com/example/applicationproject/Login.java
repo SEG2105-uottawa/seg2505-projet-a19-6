@@ -29,6 +29,7 @@ public class Login extends AppCompatActivity{
     TextView tvResult;
     DatabaseReference reff;
     public static String password,name,username,identifier;
+    String num;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class Login extends AppCompatActivity{
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         tvResult = (TextView)findViewById(R.id.tvResult);
+        num = "2";
 
 
         //OnClickListener for button login. Verifies if info entered is right
@@ -69,7 +71,11 @@ public class Login extends AppCompatActivity{
                                 if (stUsername.equals("admin") && stPassword.equals("5T5ptQ")) {
                                     openAdmin();
                                 } else if (stPassword.equals(password)) {
-                                    openActivity();
+                                    if (identifier.equals(num)){
+                                        openEmployee();
+                                    } else{
+                                        openClient();
+                                    }
                                 } else {
                                     tvResult.setText("You entered the wrong username or password");
                                 }
@@ -91,12 +97,17 @@ public class Login extends AppCompatActivity{
     }
 
     //Goto methods
-    public void openActivity(){
-        startActivity(new Intent(this, Welcome.class));
+    public void openClient(){
+            startActivity(new Intent(this, Welcome.class));
     }
+
 
     public void openAdmin(){
         startActivity(new Intent(this, AdminWelcome.class));
+    }
+
+    public void openEmployee(){
+        startActivity(new Intent(this, EmployeeWelcome.class));
     }
 
     //Setters

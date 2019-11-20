@@ -1,5 +1,7 @@
 package com.example.applicationproject;
 
+import android.app.TimePickerDialog;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -53,6 +55,22 @@ public class TestApp{
     public void loginNameTest(){
         Login.setName("This is the name");
         System.out.println(Login.name);
+    }
+
+
+    @Test
+    public void clinicNameTest(){
+        Clinic clinic = new Clinic();
+        clinic.setName("This is the name");
+
+        System.out.println(clinic.getName());
+    }
+
+    @Test
+    public void clinicPhoneTest(){
+        Clinic clinic = new Clinic();
+        clinic.setPhoneNum("819-123-4567");
+        System.out.println(clinic.getPhoneNum());
     }
 
 

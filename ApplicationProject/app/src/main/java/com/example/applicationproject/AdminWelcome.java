@@ -22,7 +22,7 @@ public class AdminWelcome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_welcome);
 
-        tvWelcome = (TextView)findViewById(R.id.tvWelcome);
+        tvWelcome = (TextView)findViewById(R.id.test);
         btnService = (Button)findViewById(R.id.btnService);
         btnUser = (Button)findViewById(R.id.btnUser);
 

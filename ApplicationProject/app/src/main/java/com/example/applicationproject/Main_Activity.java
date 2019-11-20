@@ -66,6 +66,7 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
                     user.setPassword(etPassword.getText().toString().trim());
                     user.setIdentifier(id);
                     reff.child(etUsername.getText().toString().trim()).setValue(user);
+                    
                 }
                 catch(Exception e){
                     Toast.makeText(Main_Activity.this, "Data is wrong or missing",Toast.LENGTH_LONG).show();

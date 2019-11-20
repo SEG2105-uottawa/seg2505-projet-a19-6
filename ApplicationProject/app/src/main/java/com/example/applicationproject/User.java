@@ -5,9 +5,7 @@ USER CLASS WITH CONSTRUCTOR AND GETTERS/SETTERS
 package com.example.applicationproject;
 
 public class User {
-    private String name;
-    private String username;
-    private String password;
+    private String name, username, password;
     private int identifier;
 
 
@@ -47,5 +45,7 @@ public class User {
     public void setIdentifier(int identifier) {
         this.identifier = identifier;
     }
+
+
 }
 

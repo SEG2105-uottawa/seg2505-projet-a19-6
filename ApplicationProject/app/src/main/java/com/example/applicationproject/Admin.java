@@ -34,6 +34,7 @@ public class Admin extends AppCompatActivity{
     Button btnAdd, btnRemove, btnModify;
     DatabaseReference reff;
     String serviceItem;
+    ArrayList<String> serviceList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +47,11 @@ public class Admin extends AppCompatActivity{
         btnAdd = (Button)findViewById(R.id.btnAdd);
         btnRemove = (Button)findViewById(R.id.btnRemove);
         btnModify = (Button)findViewById(R.id.btnModify);
-        final ArrayList<String> serviceList = new ArrayList<>();
+        serviceList = new ArrayList<>();
         reff = FirebaseDatabase.getInstance().getReference().child("Services");
 
 
-
+        //Link ListView to arrayList
         final ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, serviceList);
         lvService.setAdapter(arrayAdapter);
 
@@ -144,5 +145,8 @@ public class Admin extends AppCompatActivity{
 
             }
         });
+
+
     }
+
 }

@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminUser"></activity>
+        <activity android:name=".EmployeeHours" />
+        <activity android:name=".EmployeeServices" />
+        <activity android:name=".EmployeeInfo" />
+        <activity android:name=".EmployeeWelcome" />
+        <activity android:name=".AdminUser" />
         <activity android:name=".AdminWelcome" />
         <activity android:name=".Admin" />
         <activity android:name=".Welcome" />
