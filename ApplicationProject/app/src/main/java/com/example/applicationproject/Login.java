@@ -98,7 +98,7 @@ public class Login extends AppCompatActivity{
 
     //Goto methods
     public void openClient(){
-            startActivity(new Intent(this, Welcome.class));
+            startActivity(new Intent(this, ClientWelcome.class));
     }
 
 
