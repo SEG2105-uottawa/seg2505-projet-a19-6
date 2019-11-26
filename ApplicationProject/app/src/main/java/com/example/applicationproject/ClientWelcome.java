@@ -44,6 +44,12 @@ public class ClientWelcome extends AppCompatActivity {
             }
         });
 
+       // btnServices.setOnClickListener(new View.OnClickListener() {
+       //     @Override
+       //     public void onClick(View v) {
+       //         openServices();
+       //     }
+       // });
     }
 
     public void openHours(){
