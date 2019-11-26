@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity{
                                     return;
                                 }
 
-                                tvResult.setText(password);
+                                //tvResult.setText(password);
 
                                 if (stUsername.equals("admin") && stPassword.equals("5T5ptQ")) {
                                     openAdmin();
