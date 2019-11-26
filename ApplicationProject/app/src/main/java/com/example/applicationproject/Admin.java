@@ -24,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -32,9 +33,10 @@ public class Admin extends AppCompatActivity{
     ListView lvService;
     EditText etAdd, etModify;
     Button btnAdd, btnRemove, btnModify;
-    DatabaseReference reff;
+    DatabaseReference reff, reffC;
     String serviceItem;
     ArrayList<String> serviceList;
+    String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class Admin extends AppCompatActivity{
         btnModify = (Button)findViewById(R.id.btnModify);
         serviceList = new ArrayList<>();
         reff = FirebaseDatabase.getInstance().getReference().child("Services");
+        reffC = FirebaseDatabase.getInstance().getReference().child("Clinic");
 
 
         //Link ListView to arrayList
@@ -67,11 +70,36 @@ public class Admin extends AppCompatActivity{
         btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (serviceItem == null){
                     Toast.makeText(Admin.this, "Invalid Selection", Toast.LENGTH_LONG).show();
                 }
                 else {
                     reff.child(serviceItem).removeValue();
+                    reffC.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot dsp : dataSnapshot.getChildren()){
+                                name = String.valueOf(dsp.getChildren());
+                                if (serviceItem.equals(dsp.child("serviceList").exists())){
+                                    //name = dsp.getValue().toString();
+                                }
+                            }
+                        }
+
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    try {
+                        //reffC.child(name).child("serviceList").child(serviceItem).removeValue();
+                        Toast.makeText(Admin.this, name, Toast.LENGTH_LONG).show();
+                    }
+                    catch (NullPointerException e) {
+
+                    }
                 }
             }
 
