@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ClientServices"></activity>
+        <activity android:name=".ClientHours" />
+        <activity android:name=".ClientAddress" />
+        <activity android:name=".ClientWelcome" />
+        <activity android:name=".Main_Activity" />
         <activity android:name=".EmployeeHours" />
         <activity android:name=".EmployeeServices" />
         <activity android:name=".EmployeeInfo" />
@@ -18,7 +23,7 @@
         <activity android:name=".Admin" />
         <activity android:name=".Welcome" />
         <activity android:name=".Login" />
-        <activity android:name=".Main_Activity">
+        <activity android:name=".WelcomePage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
