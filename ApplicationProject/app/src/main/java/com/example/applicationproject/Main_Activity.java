@@ -62,7 +62,6 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnLogin:
-                Toast.makeText(Main_Activity.this, "Going to login", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this, Login.class));
 
                 break;
