@@ -26,7 +26,7 @@ public class Login extends AppCompatActivity{
 
 
     EditText etUsername, etPassword;
-    Button btnLogin, btnShowHide;
+    Button btnLogin, btnShowHide, btnRegister;
     TextView tvResult;
     DatabaseReference reff;
     public static String password,name,username,identifier;
@@ -41,6 +41,16 @@ public class Login extends AppCompatActivity{
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnShowHide = (Button) findViewById(R.id.btnShowHide);
         tvResult = (TextView)findViewById(R.id.tvResult);
+        btnRegister = (Button)findViewById(R.id.btnRegister);
+
+        //OnClickListener for button register. Takes the user to register page.
+            btnRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    openRegister();
+                }
+            });
+
 
         //OnClickListener for button login. Verifies if info entered is right
 
@@ -138,6 +148,10 @@ public class Login extends AppCompatActivity{
 
     public static void setIdentifier(String identifier) {
         Login.identifier = identifier;
+    }
+
+    public void openRegister(){
+        startActivity(new Intent(this, Main_Activity.class));
     }
 }
 
