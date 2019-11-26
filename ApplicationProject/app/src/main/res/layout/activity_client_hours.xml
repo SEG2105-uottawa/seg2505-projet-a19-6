@@ -29,7 +29,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rbSu" />
+        app:layout_constraintTop_toBottomOf="@+id/rbSu"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvHour"
@@ -43,14 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvChoose"
         app:layout_constraintVertical_bias="0.240" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.66" />
-
-    <RadioButton
+    <CheckBox
         android:id="@+id/rbM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvChoose"
         app:layout_constraintVertical_bias="0.036" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rbT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,7 +68,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rbM"
         app:layout_constraintVertical_bias="0.0" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rbW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rbT"
         app:layout_constraintVertical_bias="0.0" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rbTh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -98,7 +92,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rbW"
         app:layout_constraintVertical_bias="0.0" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rbF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rbTh"
         app:layout_constraintVertical_bias="0.0" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rbS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -122,7 +116,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rbTh"
         app:layout_constraintVertical_bias="0.099" />
 
-    <RadioButton
+    <CheckBox
         android:id="@+id/rbSu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -133,5 +127,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rbTh"
         app:layout_constraintVertical_bias="0.199" />
+
+    <ListView
+        android:id="@+id/lvList"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnConfirm" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,7 +27,7 @@ public class EmployeeInfo extends AppCompatActivity {
 
         etAddress = (EditText)findViewById(R.id.etAddress);
         etPhone = (EditText)findViewById(R.id.etPhone);
-        etName = (EditText)findViewById(R.id.etPhone);
+        etName = (EditText)findViewById(R.id.etName);
         etInsurance = (EditText)findViewById(R.id.etInsurance);
         etPay = (EditText)findViewById(R.id.etPay);
         tvInstruction = (TextView)findViewById(R.id.tvInstruction);

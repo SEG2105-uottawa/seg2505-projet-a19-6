@@ -3,13 +3,16 @@ package com.example.applicationproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,12 +25,13 @@ import java.util.ArrayList;
 
 public class ClientHours extends AppCompatActivity {
 
-    TextView tvHourList;
+    TextView tvChoose, tvHour;
     ListView lvList;
-    Button btnTest;
-    RadioButton rbM, rbT, rbW, rbTh, rbF, rbS, rbSu;
+    Button btnConfirm;
+    CheckBox rbM, rbT, rbW, rbTh, rbF, rbS, rbSu;
     DatabaseReference reff;
     ArrayList<String> hours;
+    int chosenHour;
 
 
     @Override
@@ -35,17 +39,18 @@ public class ClientHours extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_hours);
 
-        rbM = (RadioButton)findViewById(R.id.rbM);
-        rbT = (RadioButton)findViewById(R.id.rbT);
-        rbW = (RadioButton)findViewById(R.id.rbW);
-        rbTh = (RadioButton)findViewById(R.id.rbTh);
-        rbF = (RadioButton)findViewById(R.id.rbF);
-        rbS = (RadioButton)findViewById(R.id.rbS);
-        rbSu = (RadioButton)findViewById(R.id.rbSu);
+        rbM = (CheckBox)findViewById(R.id.rbM);
+        rbT = (CheckBox)findViewById(R.id.rbT);
+        rbW = (CheckBox)findViewById(R.id.rbW);
+        rbTh = (CheckBox)findViewById(R.id.rbTh);
+        rbF = (CheckBox)findViewById(R.id.rbF);
+        rbS = (CheckBox)findViewById(R.id.rbS);
+        rbSu = (CheckBox)findViewById(R.id.rbSu);
 
-        tvHourList = (TextView)findViewById(R.id.tvChoose);
+        tvChoose = (TextView)findViewById(R.id.tvChoose);
+        tvHour = (TextView)findViewById(R.id.tvHour);
         lvList = (ListView)findViewById(R.id.lvList);
-        btnTest = (Button)findViewById(R.id.btnConfirm);
+        btnConfirm = (Button)findViewById(R.id.btnConfirm);
 
         reff = FirebaseDatabase.getInstance().getReference().child("Clinic");
 
@@ -55,36 +60,114 @@ public class ClientHours extends AppCompatActivity {
         lvList.setAdapter(arrayAdapter);
 
 
-        reff.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                    hours.add(String.valueOf(dsp.child("address").getValue()));
-                }
 
-                arrayAdapter.notifyDataSetChanged();
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        btnTest.setOnClickListener(new View.OnClickListener() {
+        tvHour.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                availableHours("e");
+                TimePickerDialog timePickerDialog = new TimePickerDialog(ClientHours.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minutes) {
+                        String x = Integer.toString(hourOfDay) + Integer.toString(minutes);
+
+                        if (hourOfDay < 10){
+                            if (minutes < 10){
+                                tvHour.setText("0" + hourOfDay + ":0" + minutes);
+                                chosenHour = Integer.parseInt(x + "0");
+                            } else {
+                                tvHour.setText("0" + hourOfDay + ":" + minutes);
+                                chosenHour = Integer.parseInt(x);
+                            }
+                        } else {
+                            if (minutes < 10){
+                                tvHour.setText(hourOfDay + ":0" + minutes);
+                                chosenHour = Integer.parseInt(x + "0");
+                            } else {
+                                tvHour.setText(hourOfDay + ":" + minutes);
+                                chosenHour = Integer.parseInt(x);
+                            }
+                        }
+
+
+                    }
+                }, 0, 0, true);
+                timePickerDialog.show();
             }
         });
+
+
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                hours.clear();
+
+
+                reff.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                            int flag = 0;
+                            //Toast.makeText(ClientHours.this, String.valueOf(dsp.child("Hours").child("OF").getValue()),Toast.LENGTH_LONG).show();
+                            if (rbM.isChecked()) {
+                                if (String.valueOf(dsp.child("Hours").child("OM").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OM").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CM").getValue()))){
+                                    flag = 1;
+                                }
+                            }
+                            if (rbT.isChecked()) {
+                                if (String.valueOf(dsp.child("Hours").child("OT").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OT").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CT").getValue()))){
+                                    flag = 1;
+                                }
+                            }
+                            if (rbW.isChecked()) {
+                                if (String.valueOf(dsp.child("Hours").child("OW").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OW").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CW").getValue()))){
+                                    flag = 1;
+                                }
+                            }
+                            if (rbTh.isChecked()) {
+                                if (String.valueOf(dsp.child("Hours").child("OTh").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OTh").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CTh").getValue()))){
+                                    flag = 1;
+                                }
+                            }
+                            if (rbF.isChecked()) {
+                                if (String.valueOf(dsp.child("Hours").child("OF").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OF").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CF").getValue()))){
+                                    flag = 1;
+                                }
+                            }
+                            if (rbS.isChecked()) {
+                                if (String.valueOf(dsp.child("OS").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OS").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CS").getValue()))){
+                                    flag = 1;
+                                }
+                            }
+                            if (rbSu.isChecked()) {
+                                if (String.valueOf(dsp.child("Hours").child("OSu").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OSu").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CSu").getValue()))){
+                                    flag = 1;
+                                }
+                            }
+                            if (flag == 1){
+                                hours.add(String.valueOf(dsp.child("name").getValue()));
+                            }
+                        }
+                        arrayAdapter.notifyDataSetChanged();
+                    }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+             });
+
+             }
+        });
+
+
 
 
 
     }
 
-    public void availableHours(String user){
+    /*public void availableHours(String user){
         DatabaseReference reff = FirebaseDatabase.getInstance().getReference().child("Clinic").child(user).child("Hours");
         final int Monday[], Tuesday[], Wednesday[], Thursday[], Friday[], Saturday[], Sunday[];
         Monday = new int[2];
@@ -188,6 +271,6 @@ public class ClientHours extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
-    }
+        });*/
+
 }
