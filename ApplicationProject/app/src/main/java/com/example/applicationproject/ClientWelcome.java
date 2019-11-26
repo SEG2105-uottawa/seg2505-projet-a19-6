@@ -47,7 +47,7 @@ public class ClientWelcome extends AppCompatActivity {
     }
 
     public void openHours(){
-        startActivity(new Intent(this, ClientAddress.class));
+        startActivity(new Intent(this, ClientHours.class));
     }
 
     public void openServices(){
@@ -56,7 +56,7 @@ public class ClientWelcome extends AppCompatActivity {
 
 
     public void openAddress(){
-        startActivity(new Intent(this, ClientHours.class));
+        startActivity(new Intent(this, ClientAddress.class));
     }
 
 }
