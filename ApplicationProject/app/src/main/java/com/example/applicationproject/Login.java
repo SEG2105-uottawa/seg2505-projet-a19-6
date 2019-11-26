@@ -27,7 +27,6 @@ public class Login extends AppCompatActivity{
 
     EditText etUsername, etPassword;
     Button btnLogin, btnShowHide, btnRegister;
-    TextView tvResult;
     DatabaseReference reff;
     public static String password,name,username,identifier;
 
@@ -40,7 +39,6 @@ public class Login extends AppCompatActivity{
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnShowHide = (Button) findViewById(R.id.btnShowHide);
-        tvResult = (TextView)findViewById(R.id.tvResult);
         btnRegister = (Button)findViewById(R.id.btnRegister);
 
         //OnClickListener for button register. Takes the user to register page.
@@ -85,7 +83,7 @@ public class Login extends AppCompatActivity{
                                         openClient();
                                     }
                                 } else {
-                                    tvResult.setText("You entered the wrong username or password");
+                                    Toast.makeText(Login.this, "You entered the wrong username or password", Toast.LENGTH_LONG).show();
                                 }
                             }
 
