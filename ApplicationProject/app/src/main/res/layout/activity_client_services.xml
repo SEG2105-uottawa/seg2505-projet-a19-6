@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.107" />
 
-    <TextView
+    <ListView
         android:id="@+id/lvList"
         android:layout_width="200dp"
         android:layout_height="300dp"

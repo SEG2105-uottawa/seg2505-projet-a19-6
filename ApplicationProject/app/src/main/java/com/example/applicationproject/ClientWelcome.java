@@ -25,7 +25,7 @@ public class ClientWelcome extends AppCompatActivity {
         tvChoice = (TextView) findViewById(R.id.tvChoice);
         btnAddress = (Button) findViewById(R.id.btnAddress);
         btnHours = (Button) findViewById(R.id.btnHours);
-        btnServices = (Button) findViewById(R.id.btnService);
+        btnServices = (Button) findViewById(R.id.btnServices);
 
 
         tvWelcome.setText("Welcome " + Login.name + ". You are registered as a client!");
@@ -44,12 +44,12 @@ public class ClientWelcome extends AppCompatActivity {
             }
         });
 
-       // btnServices.setOnClickListener(new View.OnClickListener() {
-       //     @Override
-       //     public void onClick(View v) {
-       //         openServices();
-       //     }
-       // });
+        btnServices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openServices();
+            }
+        });
     }
 
     public void openHours(){

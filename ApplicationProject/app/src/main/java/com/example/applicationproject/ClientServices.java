@@ -28,8 +28,8 @@ public class ClientServices extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_services);
 
-        tvAddressList = (TextView)findViewById(R.id.tvChoose);
-        lvList = (ListView)findViewById(R.id.lvList);
+        tvAddressList = (TextView) findViewById(R.id.tvChoose);
+        lvList = (ListView) findViewById(R.id.lvList);
 
         reff = FirebaseDatabase.getInstance().getReference().child("Services");
 
@@ -43,8 +43,8 @@ public class ClientServices extends AppCompatActivity {
         reff.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                    address.add(dataSnapshot.getValue().toString());
+                for (DataSnapshot dsp : dataSnapshot.getChildren()) {
+                    address.add(String.valueOf(dsp.getValue()));
                 }
 
                 arrayAdapter.notifyDataSetChanged();
@@ -53,7 +53,7 @@ public class ClientServices extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError){
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
 
