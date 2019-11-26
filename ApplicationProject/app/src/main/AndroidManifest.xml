@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ClientServices"></activity>
+        <activity android:name=".ClinicPage"></activity>
+        <activity android:name=".ClientServices" />
         <activity android:name=".ClientHours" />
         <activity android:name=".ClientAddress" />
         <activity android:name=".ClientWelcome" />

@@ -1,19 +1,30 @@
 package com.example.applicationproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
 public class ClientWelcome extends AppCompatActivity {
 
-    TextView tvWelcome, tvChoice;
-    Button btnAddress, btnHours, btnServices, btnLogOut;
+    TextView tvWelcome, tvChoice, tvType;
+    Button btnAddress, btnHours, btnServices, btnLogOut, btnSearch;
+    EditText etName;
+    DatabaseReference reff;
 
 
     @Override
@@ -27,9 +38,15 @@ public class ClientWelcome extends AppCompatActivity {
         btnHours = (Button) findViewById(R.id.btnHours);
         btnServices = (Button) findViewById(R.id.btnServices);
         btnLogOut = (Button)findViewById(R.id.btnLogOut);
+        btnSearch = (Button)findViewById(R.id.btnSearch);
+        tvType = (TextView)findViewById(R.id.tvType);
+        etName = (EditText)findViewById(R.id.etName);
+        reff = FirebaseDatabase.getInstance().getReference().child("Clinic");
 
 
         tvWelcome.setText("Welcome " + Login.name + ". You are registered as a client!");
+
+
 
         btnAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +77,35 @@ public class ClientWelcome extends AppCompatActivity {
 
             }
         });
+
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reff.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String name = etName.getText().toString();
+                        for (DataSnapshot dsp : dataSnapshot.getChildren()){
+
+                            if (name.equals(String.valueOf(dsp.child("name").getValue()))){
+
+                                openClinic();
+                            } else {
+                                Toast.makeText(ClientWelcome.this, "Invalid name", Toast.LENGTH_LONG ).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+            }
+        });
     }
 
     public void openHours(){
@@ -77,6 +123,10 @@ public class ClientWelcome extends AppCompatActivity {
 
     public void openLogin(){
         startActivity(new Intent(this, Login.class));
+    }
+
+    public void openClinic(){
+        startActivity(new Intent(this, ClinicPage.class));
     }
 
 }
