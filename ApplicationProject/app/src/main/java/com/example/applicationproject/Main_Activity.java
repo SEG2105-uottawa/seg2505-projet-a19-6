@@ -28,7 +28,7 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
     EditText etName,etUsername,etPassword,etIdentifier;
     Button btnSave, btnLogin, btnShowHide;
     TextView tvIdentifier, tvRegister;
-    DatabaseReference reff;
+    DatabaseReference reff, reff1;
     User user;
     boolean isUserExisting;
 
@@ -54,23 +54,7 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
         //My first way of setting ClickListener. Not updated because not necessary
         btnSave.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
-
-        //On click listener for Show/Hide button for password
-        btnShowHide.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (btnShowHide.getText().equals("SHOW")) {
-                    etPassword.setTransformationMethod(null); //shows password
-                    btnShowHide.setText("HIDE");
-                    etPassword.setSelection(etPassword.getText().length()); //replaces cursor at the end
-                }
-                else {
-                    etPassword.setTransformationMethod(new PasswordTransformationMethod()); //hides password
-                    btnShowHide.setText("SHOW");
-                    etPassword.setSelection(etPassword.getText().length()); //replaces cursor at the end
-                }
-            }
-        });
+        btnShowHide.setOnClickListener(this);
 
     }
 
@@ -83,6 +67,20 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
 
                 break;
 
+            case R.id.btnShowHide:
+                if (btnShowHide.getText().equals("SHOW")) {
+                    etPassword.setTransformationMethod(null); //shows password
+                    btnShowHide.setText("HIDE");
+                    etPassword.setSelection(etPassword.getText().length()); //replaces cursor at the end
+                    break;
+                }
+                else {
+                    etPassword.setTransformationMethod(new PasswordTransformationMethod()); //hides password
+                    btnShowHide.setText("SHOW");
+                    etPassword.setSelection(etPassword.getText().length()); //replaces cursor at the end
+                    break;
+                }
+
             case R.id.btnSave:
 
                 try {
@@ -93,14 +91,24 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
                         user.setUsername(etUsername.getText().toString().trim());
                         user.setPassword(etPassword.getText().toString().trim());
                         isValid();
-                        if (!isUserExisting) {
+                        if (isUserExisting) {
                             break;
                         }
-                        reff.child(etUsername.getText().toString().trim()).setValue(user);
-                    } else {
+                        else {
+                            reff.child(etUsername.getText().toString().trim()).setValue(user);
+                            Toast.makeText(Main_Activity.this, "Data inserted", Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(this, Login.class));
+                            break;
+                        }
+                    }
+                    else {
                         Toast.makeText(Main_Activity.this, "Data is wrong or missing", Toast.LENGTH_LONG).show();
                         break;
                     }
+                }catch (Exception e) {
+                    Toast.makeText(Main_Activity.this, "Data is wrong or missing", Toast.LENGTH_LONG).show();
+                    break;
+                }
                 /*try {
                     reff.child(etUsername.getText().toString()).getKey();
                     Toast.makeText(Main_Activity.this, "This username is taken", Toast.LENGTH_LONG).show();
@@ -121,31 +129,21 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
 
                         }
                     });*/
-
-                }catch (Exception e) {
-                        Toast.makeText(Main_Activity.this, "Data is wrong or missing", Toast.LENGTH_LONG).show();
-                        break;
-                    }
-
-
-                    Toast.makeText(Main_Activity.this, "Data inserted", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(this, Login.class));
-                    break;
         }
     }
 
 
     public void isValid(){
-        reff = FirebaseDatabase.getInstance().getReference().child("User").child(etUsername.getText().toString());
-        reff.addValueEventListener(new ValueEventListener() {
+        reff1 = FirebaseDatabase.getInstance().getReference().child("User").child(etUsername.getText().toString());
+        reff1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     Toast.makeText(Main_Activity.this, "Username already exists", Toast.LENGTH_LONG).show();
-                    isUserExisting = false;
+                    isUserExisting = true;
                 }
                 else{
-                    isUserExisting = true;
+                    isUserExisting = false;
                 }
             }
             @Override
