@@ -120,15 +120,22 @@ public class Login extends AppCompatActivity{
     //Goto methods
     public void openClient(){
             startActivity(new Intent(this, ClientWelcome.class));
+            finish();
     }
 
 
     public void openAdmin(){
         startActivity(new Intent(this, AdminWelcome.class));
+        finish();
     }
 
     public void openEmployee(){
         startActivity(new Intent(this, EmployeeWelcome.class));
+        finish();
+    }
+
+    public void openRegister(){
+        startActivity(new Intent(this, Main_Activity.class));
     }
 
     //Setters
@@ -146,10 +153,6 @@ public class Login extends AppCompatActivity{
 
     public static void setIdentifier(String identifier) {
         Login.identifier = identifier;
-    }
-
-    public void openRegister(){
-        startActivity(new Intent(this, Main_Activity.class));
     }
 }
 

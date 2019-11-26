@@ -123,6 +123,7 @@ public class ClientWelcome extends AppCompatActivity {
 
     public void openLogin(){
         startActivity(new Intent(this, Login.class));
+        finish();
     }
 
     public void openClinic(){
