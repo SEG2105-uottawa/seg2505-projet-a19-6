@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 public class Main_Activity extends AppCompatActivity implements View.OnClickListener {
 
     EditText etName,etUsername,etPassword,etIdentifier;
-    Button btnSave, btnLogin;
+    Button btnSave, btnLogin, btnShowHide;
     TextView tvIdentifier, tvRegister;
     DatabaseReference reff;
     User user;
@@ -42,14 +43,34 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
         etIdentifier = (EditText)findViewById(R.id.etIdentifier);
         btnSave = (Button)findViewById(R.id.btnSave);
         btnLogin = (Button)findViewById(R.id.btnLogin);
+        btnShowHide = (Button) findViewById(R.id.btnShowHide);
         tvIdentifier = (TextView)findViewById(R.id.tvIdentifier);
         tvRegister = (TextView)findViewById(R.id.tvRegister);
         user = new User();
         reff = FirebaseDatabase.getInstance().getReference().child("User");
 
+        etPassword.setTransformationMethod(new PasswordTransformationMethod()); //hides the password
+
         //My first way of setting ClickListener. Not updated because not necessary
         btnSave.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+
+        //On click listener for Show/Hide button for password
+        btnShowHide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (btnShowHide.getText().equals("SHOW")) {
+                    etPassword.setTransformationMethod(null); //shows password
+                    btnShowHide.setText("HIDE");
+                    etPassword.setSelection(etPassword.getText().length()); //replaces cursor at the end
+                }
+                else {
+                    etPassword.setTransformationMethod(new PasswordTransformationMethod()); //hides password
+                    btnShowHide.setText("SHOW");
+                    etPassword.setSelection(etPassword.getText().length()); //replaces cursor at the end
+                }
+            }
+        });
 
     }
 
@@ -110,14 +131,10 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(Main_Activity.this, "Data inserted", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(this, Login.class));
                     break;
-
-
-
-
-
-
         }
     }
+
+
     public void isValid(){
         reff = FirebaseDatabase.getInstance().getReference().child("User").child(etUsername.getText().toString());
         reff.addValueEventListener(new ValueEventListener() {

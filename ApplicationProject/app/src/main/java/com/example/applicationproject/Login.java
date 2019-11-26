@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +26,7 @@ public class Login extends AppCompatActivity{
 
 
     EditText etUsername, etPassword;
-    Button btnLogin;
+    Button btnLogin, btnShowHide;
     TextView tvResult;
     DatabaseReference reff;
     public static String password,name,username,identifier;
@@ -38,8 +39,8 @@ public class Login extends AppCompatActivity{
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
+        btnShowHide = (Button) findViewById(R.id.btnShowHide);
         tvResult = (TextView)findViewById(R.id.tvResult);
-
 
         //OnClickListener for button login. Verifies if info entered is right
 
@@ -63,8 +64,6 @@ public class Login extends AppCompatActivity{
                                     Toast.makeText(Login.this, "Wrong input", Toast.LENGTH_LONG).show();
                                     return;
                                 }
-
-                                //tvResult.setText(password);
 
                                 if (stUsername.equals("admin") && stPassword.equals("5T5ptQ")) {
                                     openAdmin();
@@ -91,7 +90,22 @@ public class Login extends AppCompatActivity{
                 }
             });
 
-
+        //On click listener for Show/Hide button for password
+            btnShowHide.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (btnShowHide.getText().equals("SHOW")) {
+                        etPassword.setTransformationMethod(null); //shows password
+                        btnShowHide.setText("HIDE");
+                        etPassword.setSelection(etPassword.getText().length()); //replaces cursor at the end
+                    }
+                    else {
+                        etPassword.setTransformationMethod(new PasswordTransformationMethod()); //hides password
+                        btnShowHide.setText("SHOW");
+                        etPassword.setSelection(etPassword.getText().length()); //replaces cursor at the end
+                    }
+                }
+            });
 
     }
 
