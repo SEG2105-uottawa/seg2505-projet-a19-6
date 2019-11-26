@@ -13,7 +13,7 @@ import org.w3c.dom.Text;
 public class ClientWelcome extends AppCompatActivity {
 
     TextView tvWelcome, tvChoice;
-    Button btnAddress, btnHours, btnServices;
+    Button btnAddress, btnHours, btnServices, btnLogOut;
 
 
     @Override
@@ -25,7 +25,8 @@ public class ClientWelcome extends AppCompatActivity {
         tvChoice = (TextView) findViewById(R.id.tvChoice);
         btnAddress = (Button) findViewById(R.id.btnAddress);
         btnHours = (Button) findViewById(R.id.btnHours);
-        btnServices = (Button) findViewById(R.id.btnService);
+        btnServices = (Button) findViewById(R.id.btnServices);
+        btnLogOut = (Button)findViewById(R.id.btnLogOut);
 
 
         tvWelcome.setText("Welcome " + Login.name + ". You are registered as a client!");
@@ -44,6 +45,21 @@ public class ClientWelcome extends AppCompatActivity {
             }
         });
 
+        btnServices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openServices();
+            }
+        });
+
+        //OnClickListener for Log Out
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLogin();
+
+            }
+        });
     }
 
     public void openHours(){
@@ -57,6 +73,10 @@ public class ClientWelcome extends AppCompatActivity {
 
     public void openAddress(){
         startActivity(new Intent(this, ClientAddress.class));
+    }
+
+    public void openLogin(){
+        startActivity(new Intent(this, Login.class));
     }
 
 }

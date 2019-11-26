@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class EmployeeWelcome extends AppCompatActivity {
 
 
-    Button btnInfo, btnContinue, btnHours;
+    Button btnInfo, btnContinue, btnHours, btnLogOut;
     TextView tvWelcome;
 
 
@@ -26,6 +26,7 @@ public class EmployeeWelcome extends AppCompatActivity {
         btnContinue = (Button)findViewById(R.id.btnContinue);
         btnHours = (Button)findViewById(R.id.btnHours);
         tvWelcome = (TextView)findViewById(R.id.test);
+        btnLogOut = (Button)findViewById(R.id.btnLogOut);
 
 
         tvWelcome.setText("Welcome " + Login.name + ". You are registered as an employee!");
@@ -53,6 +54,14 @@ public class EmployeeWelcome extends AppCompatActivity {
 
 
 
+        //OnClickListener for Log Out
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLogin();
+
+            }
+        });
 
     }
 
@@ -66,6 +75,10 @@ public class EmployeeWelcome extends AppCompatActivity {
 
     public void openEmployeeHours(){
         startActivity(new Intent(this, EmployeeHours.class));
+    }
+
+    public void openLogin(){
+        startActivity(new Intent(this, Login.class));
     }
 
 

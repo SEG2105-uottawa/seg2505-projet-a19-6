@@ -15,7 +15,7 @@ import android.widget.TextView;
 public class AdminWelcome extends AppCompatActivity {
 
     TextView tvWelcome;
-    Button btnService, btnUser;
+    Button btnService, btnUser, btnLogOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +25,7 @@ public class AdminWelcome extends AppCompatActivity {
         tvWelcome = (TextView)findViewById(R.id.test);
         btnService = (Button)findViewById(R.id.btnService);
         btnUser = (Button)findViewById(R.id.btnUser);
+        btnLogOut = (Button)findViewById(R.id.btnLogOut);
 
 
         //OnClickListener for service button
@@ -43,11 +44,24 @@ public class AdminWelcome extends AppCompatActivity {
 
             }
         });
+
+        //OnClickListener for Log Out
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openLogin();
+
+            }
+        });
     }
 
     //GOTO methods
     public void openServices(){
         startActivity(new Intent(this, Admin.class));
+    }
+
+    public void openLogin(){
+        startActivity(new Intent(this, Login.class));
     }
 
     public void openUsers(){
