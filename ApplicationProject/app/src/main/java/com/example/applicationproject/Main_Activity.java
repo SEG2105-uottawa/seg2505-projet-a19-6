@@ -66,7 +66,7 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
 
                 try {
                     int id = Integer.parseInt(etIdentifier.getText().toString().trim());
-                    if((id ==1 || id == 2) & !(etName.getText().toString().trim().isEmpty()) & !(etUsername.getText().toString().trim().isEmpty()) & !(etPassword.getText().toString().trim().isEmpty())){
+                    if ((id == 1 || id == 2) & !(etName.getText().toString().trim().isEmpty()) & !(etUsername.getText().toString().trim().isEmpty()) & !(etPassword.getText().toString().trim().isEmpty())) {
                         user.setIdentifier(id);
                         user.setName(etName.getText().toString().trim());
                         user.setUsername(etUsername.getText().toString().trim());
@@ -76,8 +76,7 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
                             break;
                         }
                         reff.child(etUsername.getText().toString().trim()).setValue(user);
-                    }
-                    else {
+                    } else {
                         Toast.makeText(Main_Activity.this, "Data is wrong or missing", Toast.LENGTH_LONG).show();
                         break;
                     }
@@ -102,16 +101,7 @@ public class Main_Activity extends AppCompatActivity implements View.OnClickList
                         }
                     });*/
 
-
-                    try {
-                        int id = Integer.parseInt(etIdentifier.getText().toString().trim());
-                        user.setName(etName.getText().toString().trim());
-                        user.setUsername(etUsername.getText().toString().trim());
-                        user.setPassword(etPassword.getText().toString().trim());
-                        user.setIdentifier(id);
-                        reff.child(etUsername.getText().toString().trim()).setValue(user);
-
-                    } catch (Exception e) {
+                }catch (Exception e) {
                         Toast.makeText(Main_Activity.this, "Data is wrong or missing", Toast.LENGTH_LONG).show();
                         break;
                     }
