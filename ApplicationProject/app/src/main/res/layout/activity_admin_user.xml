@@ -33,6 +33,7 @@
         android:id="@+id/lvList"
         android:layout_width="200dp"
         android:layout_height="300dp"
+        android:choiceMode="singleChoice"
         app:layout_constraintBottom_toTopOf="@+id/btnRemove"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"

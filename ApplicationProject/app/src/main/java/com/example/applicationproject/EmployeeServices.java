@@ -142,6 +142,8 @@ public class EmployeeServices extends AppCompatActivity {
                 //Add selected service to Firebase
                 reffE.child(serviceItem).setValue(serviceItem);
 
+                arrayAdapter.notifyDataSetChanged();
+
             }
         });
 

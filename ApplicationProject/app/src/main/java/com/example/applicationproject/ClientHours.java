@@ -103,56 +103,60 @@ public class ClientHours extends AppCompatActivity {
                 hours.clear();
 
 
+
                 reff.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         for (DataSnapshot dsp : dataSnapshot.getChildren()) {
                             int flag = 0;
-                            //Toast.makeText(ClientHours.this, String.valueOf(dsp.child("Hours").child("OF").getValue()),Toast.LENGTH_LONG).show();
+
                             try {
 
                                 if (rbM.isChecked()) {
-                                    if (String.valueOf(dsp.child("Hours").child("OM").getValue()).equals("Closed") == false && chosenHour >= Integer.parseInt(String.valueOf(dsp.child("Hours").child("OM").getValue())) && chosenHour <= Integer.parseInt(String.valueOf(dsp.child("Hours").child("CM").getValue()))) {
+                                    if (String.valueOf(dsp.child("Hours").child("OM").getValue()) != null && String.valueOf(dsp.child("Hours").child("CM").getValue()) != null && String.valueOf(dsp.child("Hours").child("OM").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OM").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CM").getValue()))) {
                                         flag = 1;
+
                                     }
                                 }
                                 if (rbT.isChecked()) {
-                                    if (String.valueOf(dsp.child("Hours").child("OT").getValue()).equals("Closed") == false && chosenHour >= Integer.parseInt(String.valueOf(dsp.child("Hours").child("OT").getValue())) && chosenHour <= Integer.parseInt(String.valueOf(dsp.child("Hours").child("CT").getValue()))) {
+                                    if (String.valueOf(dsp.child("Hours").child("OT").getValue()) != null && String.valueOf(dsp.child("Hours").child("CT").getValue()) != null && String.valueOf(dsp.child("Hours").child("OT").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OT").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CT").getValue()))) {
                                         flag = 1;
+
                                     }
                                 }
                                 if (rbW.isChecked()) {
-                                    if (String.valueOf(dsp.child("Hours").child("OW").getValue()).equals("Closed") == false && chosenHour >= Integer.parseInt(String.valueOf(dsp.child("Hours").child("OW").getValue())) && chosenHour <= Integer.parseInt(String.valueOf(dsp.child("Hours").child("CW").getValue()))) {
+                                    if (String.valueOf(dsp.child("Hours").child("OW").getValue()) != null && String.valueOf(dsp.child("Hours").child("CW").getValue()) != null && String.valueOf(dsp.child("Hours").child("OW").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OW").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CW").getValue()))) {
                                         flag = 1;
                                     }
                                 }
                                 if (rbTh.isChecked()) {
-                                    if (String.valueOf(dsp.child("Hours").child("OTh").getValue()).equals("Closed") == false && chosenHour >= Integer.parseInt(String.valueOf(dsp.child("Hours").child("OTh").getValue())) && chosenHour <= Integer.parseInt(String.valueOf(dsp.child("Hours").child("CTh").getValue()))) {
+                                    if (String.valueOf(dsp.child("Hours").child("OTh").getValue()) != null && String.valueOf(dsp.child("Hours").child("CTh").getValue()) != null && String.valueOf(dsp.child("Hours").child("OTh").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OTh").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CTh").getValue()))) {
                                         flag = 1;
                                     }
                                 }
                                 if (rbF.isChecked()) {
-                                    if (String.valueOf(dsp.child("Hours").child("OF").getValue()).equals("Closed") == false && chosenHour >= Integer.parseInt(String.valueOf(dsp.child("Hours").child("OF").getValue())) && chosenHour <= Integer.parseInt(String.valueOf(dsp.child("Hours").child("CF").getValue()))) {
+                                    if (String.valueOf(dsp.child("Hours").child("OF").getValue()) != null && String.valueOf(dsp.child("Hours").child("CF").getValue()) != null && String.valueOf(dsp.child("Hours").child("OF").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OF").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CF").getValue()))) {
                                         flag = 1;
                                     }
                                 }
                                 if (rbS.isChecked()) {
-                                    if (String.valueOf(dsp.child("OS").getValue()).equals("Closed") == false && chosenHour >= Integer.parseInt(String.valueOf(dsp.child("Hours").child("OS").getValue())) && chosenHour <= Integer.parseInt(String.valueOf(dsp.child("Hours").child("CS").getValue()))) {
+                                    if (String.valueOf(dsp.child("Hours").child("OS").getValue()) != null && String.valueOf(dsp.child("Hours").child("CS").getValue()) != null && String.valueOf(dsp.child("Hours").child("OS").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OS").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CS").getValue()))) {
                                         flag = 1;
                                     }
                                 }
                                 if (rbSu.isChecked()) {
-                                    if (String.valueOf(dsp.child("Hours").child("OSu").getValue()).equals("Closed") == false && chosenHour >= Integer.parseInt(String.valueOf(dsp.child("Hours").child("OSu").getValue())) && chosenHour <= Integer.parseInt(String.valueOf(dsp.child("Hours").child("CSu").getValue()))) {
+                                    if (String.valueOf(dsp.child("Hours").child("OSu").getValue()) != null && String.valueOf(dsp.child("Hours").child("CSu").getValue()) != null && String.valueOf(dsp.child("Hours").child("OSu").getValue()).equals("Closed") == false && chosenHour > Integer.parseInt(String.valueOf(dsp.child("Hours").child("OSu").getValue())) && chosenHour < Integer.parseInt(String.valueOf(dsp.child("Hours").child("CSu").getValue()))) {
                                         flag = 1;
                                     }
                                 }
                                 if (flag == 1) {
+
                                     hours.add(String.valueOf(dsp.child("name").getValue()));
                                 }
                             }
                             catch (Exception e){
-                                continue;
+
                             }
                         }
                         arrayAdapter.notifyDataSetChanged();

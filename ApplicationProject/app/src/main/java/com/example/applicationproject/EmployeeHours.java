@@ -59,46 +59,46 @@ public class EmployeeHours extends AppCompatActivity{
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 try {
-                    tvOM.setText(dataSnapshot.child("OM").getValue().toString().substring(0,1) + dataSnapshot.child("OM").getValue().toString().substring(3,4));
+                    tvOM.setText(dataSnapshot.child("OM").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("OM").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("OM").setValue("0000");}
                 try {
-                    tvCM.setText(dataSnapshot.child("CM").getValue().toString().substring(0,1) + dataSnapshot.child("CM").getValue().toString().substring(3,4));
+                    tvCM.setText(dataSnapshot.child("CM").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("CM").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("CM").setValue("0000");}
                 try {
-                    tvOT.setText(dataSnapshot.child("OT").getValue().toString().substring(0,1) + dataSnapshot.child("OT").getValue().toString().substring(3,4));
+                    tvOT.setText(dataSnapshot.child("OT").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("OT").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("OT").setValue("0000");}
                 try {
-                    tvCT.setText(dataSnapshot.child("CT").getValue().toString().substring(0,1) + dataSnapshot.child("CT").getValue().toString().substring(3,4));
+                    tvCT.setText(dataSnapshot.child("CT").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("CT").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("CT").setValue("0000");}
                 try {
-                    tvOW.setText(dataSnapshot.child("OW").getValue().toString().substring(0,1) + dataSnapshot.child("OW").getValue().toString().substring(3,4));
+                    tvOW.setText(dataSnapshot.child("OW").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("OW").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("OW").setValue("0000");}
                 try {
-                    tvCW.setText(dataSnapshot.child("CW").getValue().toString().substring(0,1) + dataSnapshot.child("CW").getValue().toString().substring(3,4));
+                    tvCW.setText(dataSnapshot.child("CW").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("CW").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("CW").setValue("0000");}
                 try {
-                    tvOTh.setText(dataSnapshot.child("OTh").getValue().toString().substring(0,1) + dataSnapshot.child("OTh").getValue().toString().substring(3,4));
+                    tvOTh.setText(dataSnapshot.child("OTh").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("OTh").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("OTh").setValue("0000");}
                 try {
-                    tvCTh.setText(dataSnapshot.child("CTh").getValue().toString().substring(0,1) + dataSnapshot.child("CTh").getValue().toString().substring(3,4));
+                    tvCTh.setText(dataSnapshot.child("CTh").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("CTh").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("CTh").setValue("0000");}
                 try {
-                    tvOF.setText(dataSnapshot.child("OF").getValue().toString().substring(0,1) + dataSnapshot.child("OF").getValue().toString().substring(3,4));
+                    tvOF.setText(dataSnapshot.child("OF").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("OF").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("OF").setValue("0000");}
                 try {
-                    tvCF.setText(dataSnapshot.child("CF").getValue().toString().substring(0,1) + dataSnapshot.child("CF").getValue().toString().substring(3,4));
+                    tvCF.setText(dataSnapshot.child("CF").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("CF").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("CF").setValue("0000");}
                 try {
-                    tvOS.setText(dataSnapshot.child("OS").getValue().toString().substring(0,1) + dataSnapshot.child("OS").getValue().toString().substring(3,4));
+                    tvOS.setText(dataSnapshot.child("OS").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("OS").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("OS").setValue("0000");}
                 try {
-                    tvCS.setText(dataSnapshot.child("CS").getValue().toString().substring(0,1) + dataSnapshot.child("CS").getValue().toString().substring(3,4));
+                    tvCS.setText(dataSnapshot.child("CS").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("CS").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("CS").setValue("0000");}
                 try {
-                    tvOSu.setText(dataSnapshot.child("OSu").getValue().toString().substring(0,1) + dataSnapshot.child("OSu").getValue().toString().substring(3,4));
+                    tvOSu.setText(dataSnapshot.child("OSu").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("OSu").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("OSu").setValue("0000");}
                 try {
-                    tvCSu.setText(dataSnapshot.child("CSu").getValue().toString().substring(0,1) + dataSnapshot.child("CSu").getValue().toString().substring(3,4));
+                    tvCSu.setText(dataSnapshot.child("CSu").getValue().toString().substring(0,2) + ":" + dataSnapshot.child("CSu").getValue().toString().substring(2));
                 } catch (NullPointerException NPE){reff.child("CSu").setValue("0000");}
             }
 

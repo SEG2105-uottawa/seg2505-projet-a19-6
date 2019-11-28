@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,10 +22,13 @@ import java.util.ArrayList;
 
 public class ClientServices extends AppCompatActivity {
 
-    TextView tvAddressList;
-    ListView lvList;
+    TextView tvAddressList, tvClinic;
+    ListView lvList, lvClinic;
+    Button btnConfirm;
     DatabaseReference reff;
-    ArrayList<String> address;
+    DatabaseReference reffC;
+    ArrayList<String> address, clinic, users;
+    String selectedItem, username, currentUser, use;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +37,31 @@ public class ClientServices extends AppCompatActivity {
 
         tvAddressList = (TextView) findViewById(R.id.tvChoose);
         lvList = (ListView) findViewById(R.id.lvList);
+        tvClinic = (TextView)findViewById(R.id.tvClinic);
+        lvClinic = (ListView)findViewById(R.id.lvClinic);
+        btnConfirm = (Button)findViewById(R.id.btnConfirm);
 
         reff = FirebaseDatabase.getInstance().getReference().child("Services");
+        reffC = FirebaseDatabase.getInstance().getReference().child("Clinic");
 
         address = new ArrayList<>();
+        clinic = new ArrayList<>();
+        users = new ArrayList<>();
+
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, address);
         lvList.setAdapter(arrayAdapter);
 
+        final ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
+        lvClinic.setAdapter(arrayAdapter1);
+
+        lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedItem = lvList.getItemAtPosition(position).toString();
+
+            }
+        });
 
         //For loop iterating through the services
         reff.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -46,7 +70,6 @@ public class ClientServices extends AppCompatActivity {
                 for (DataSnapshot dsp : dataSnapshot.getChildren()) {
                     address.add(String.valueOf(dsp.getValue()));
                 }
-
                 arrayAdapter.notifyDataSetChanged();
 
 
@@ -57,6 +80,33 @@ public class ClientServices extends AppCompatActivity {
 
             }
 
+        });
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                users.clear();
+                arrayAdapter1.notifyDataSetChanged();
+
+                //This iterates through the Clinics and then uses the method hasChild to check if the serviceList of the users
+                //contain the selected item from the listView
+                reffC.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot dsp : dataSnapshot.getChildren()){
+                            if (dsp.child("serviceList").hasChild(selectedItem)){
+                                users.add(dsp.child("name").getValue().toString());
+                            }
+                        }
+                        arrayAdapter1.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
         });
     }
 }
