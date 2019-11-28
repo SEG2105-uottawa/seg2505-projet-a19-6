@@ -33,7 +33,7 @@ public class Admin extends AppCompatActivity{
     ListView lvService;
     EditText etAdd, etModify;
     Button btnAdd, btnRemove, btnModify;
-    DatabaseReference reff, reffC;
+    DatabaseReference reff, reffC, reffD;
     String serviceItem;
     ArrayList<String> serviceList;
     String name;
@@ -75,14 +75,24 @@ public class Admin extends AppCompatActivity{
                     Toast.makeText(Admin.this, "Invalid Selection", Toast.LENGTH_LONG).show();
                 }
                 else {
+                    name = serviceItem.toString();
                     reff.child(serviceItem).removeValue();
+
+                    //non functional for loop
                     reffC.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot dsp : dataSnapshot.getChildren()){
-                                name = String.valueOf(dsp.getChildren());
-                                if (serviceItem.equals(dsp.child("serviceList").exists())){
-                                    //name = dsp.getValue().toString();
+                            for (DataSnapshot b : dataSnapshot.getChildren()){
+                                for (DataSnapshot a: dataSnapshot.child("serviceList").getChildren()) {
+                                    if (a.child(serviceItem).exists()) {
+                                        reffD = a.child(serviceItem).getRef();
+                                        reffD.removeValue();
+                                        reff.child(serviceItem).removeValue();
+                                    }
+
+                                    //public void onCancelled (@NonNull DatabaseError databaseError){
+
+                                    //}
                                 }
                             }
                         }

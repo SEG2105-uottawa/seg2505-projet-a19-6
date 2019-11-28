@@ -64,6 +64,7 @@ public class EmployeeInfo extends AppCompatActivity {
     }
     public void openWelcome(){
         startActivity(new Intent(this, EmployeeWelcome.class));
+        finish();
     }
 
 }
