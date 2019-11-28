@@ -4,65 +4,59 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClinicPage">
+    tools:context=".Booking">
 
     <TextView
-        android:id="@+id/tvWelcome"
+        android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:text="Please select a date"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09" />
+        app:layout_constraintVertical_bias="0.027" />
 
-    <Button
-        android:id="@+id/btnBook"
+    <CalendarView
+        android:id="@+id/cvDate"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Book an appointment"
+        android:layout_height="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
-        app:layout_constraintVertical_bias="0.783" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDate"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tvCurrent"
+        android:id="@+id/tvSelectTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Current waiting time:"
+        android:text="Please select a time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvWelcome"
-        app:layout_constraintVertical_bias="0.194" />
+        app:layout_constraintTop_toBottomOf="@+id/cvDate"
+        app:layout_constraintVertical_bias="0.168" />
 
     <TextView
         android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0 min"
-        android:textSize="40sp"
-        android:textStyle="bold"
+        android:text="Time"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCurrent"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectTime"
+        app:layout_constraintVertical_bias="0.111" />
 
     <Button
-        android:id="@+id/btnRefresh"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:text="Refresh"
-        android:textSize="7sp"
+        android:id="@+id/btnConfirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTime"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSelectTime" />
 </androidx.constraintlayout.widget.ConstraintLayout>
