@@ -90,7 +90,7 @@ public class ClientWelcome extends AppCompatActivity {
 
                             if (name.equals(String.valueOf(dsp.child("name").getValue()))){
 
-                                openClinic();
+                                openClinic(dsp.getKey());
                             } else {
                                 Toast.makeText(ClientWelcome.this, "Invalid name", Toast.LENGTH_LONG ).show();
                             }
@@ -126,8 +126,11 @@ public class ClientWelcome extends AppCompatActivity {
         finish();
     }
 
-    public void openClinic(){
-        startActivity(new Intent(this, ClinicPage.class));
+    public void openClinic(String user){
+        Intent intent = new Intent(this, ClinicPage.class);
+        intent.putExtra("USERNAME", user );
+        startActivity(intent);
+
     }
 
 }
