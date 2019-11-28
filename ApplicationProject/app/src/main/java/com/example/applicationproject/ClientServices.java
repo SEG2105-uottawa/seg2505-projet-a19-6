@@ -3,6 +3,7 @@ package com.example.applicationproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,7 +29,7 @@ public class ClientServices extends AppCompatActivity {
     DatabaseReference reff;
     DatabaseReference reffC;
     ArrayList<String> address, clinic, users;
-    String selectedItem, username, currentUser, use;
+    String selectedItem, currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +61,29 @@ public class ClientServices extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedItem = lvList.getItemAtPosition(position).toString();
 
+            }
+        });
+
+        lvClinic.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                currentUser = lvClinic.getItemAtPosition(position).toString();
+
+                reffC.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot dsp : dataSnapshot.getChildren()){
+                            if (dsp.child("name").getValue().toString().equals(currentUser)){
+                                openClinic(dsp.getKey());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -108,5 +132,12 @@ public class ClientServices extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void openClinic(String user){
+        Intent intent = new Intent(this, ClinicPage.class);
+        intent.putExtra("USERNAME", user );
+        startActivity(intent);
+
     }
 }

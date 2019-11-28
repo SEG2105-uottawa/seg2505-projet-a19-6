@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,7 +33,9 @@ public class ClientHours extends AppCompatActivity {
     CheckBox rbM, rbT, rbW, rbTh, rbF, rbS, rbSu;
     DatabaseReference reff;
     ArrayList<String> hours;
+    String selectedItem;
     int chosenHour;
+
 
 
     @Override
@@ -59,7 +63,27 @@ public class ClientHours extends AppCompatActivity {
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, hours);
         lvList.setAdapter(arrayAdapter);
 
+        lvList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedItem = lvList.getItemAtPosition(position).toString();
+                reff.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot dsp : dataSnapshot.getChildren()){
+                            if (dsp.child("name").getValue().toString().equals(selectedItem)){
+                                openClinic(dsp.getKey());
+                            }
+                        }
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
 
         tvHour.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +125,7 @@ public class ClientHours extends AppCompatActivity {
             public void onClick(View v) {
 
                 hours.clear();
+                arrayAdapter.notifyDataSetChanged();
 
 
 
@@ -170,117 +195,11 @@ public class ClientHours extends AppCompatActivity {
 
              }
         });
-
-
-
-
-
     }
 
-    /*public void availableHours(String user){
-        DatabaseReference reff = FirebaseDatabase.getInstance().getReference().child("Clinic").child(user).child("Hours");
-        final int Monday[], Tuesday[], Wednesday[], Thursday[], Friday[], Saturday[], Sunday[];
-        Monday = new int[2];
-        Tuesday = new int[2];
-        Wednesday = new int[2];
-        Thursday = new int[2];
-        Friday = new int[2];
-        Saturday = new int[2];
-        Sunday = new int[2];
-
-        reff.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
-                if (dataSnapshot.child("OM").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Monday[0] = Integer.parseInt(dataSnapshot.child("OM").getValue().toString().substring(0,1));
-                }
-
-                if (dataSnapshot.child("OT").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Tuesday[0] = Integer.parseInt(dataSnapshot.child("OT").getValue().toString().substring(0,1));
-                }
-                if (dataSnapshot.child("OW").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Wednesday[0] = Integer.parseInt(dataSnapshot.child("OW").getValue().toString().substring(0,1));
-                }
-                if (dataSnapshot.child("OTh").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Thursday[0] = Integer.parseInt(dataSnapshot.child("OTh").getValue().toString().substring(0,1));
-                }
-                if (dataSnapshot.child("OF").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Friday[0] = Integer.parseInt(dataSnapshot.child("OF").getValue().toString().substring(0,1));
-                }
-                if (dataSnapshot.child("OS").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Saturday[0] = Integer.parseInt(dataSnapshot.child("OS").getValue().toString().substring(0,1));
-                }
-                if (dataSnapshot.child("OSu").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Sunday[0] = Integer.parseInt(dataSnapshot.child("OSu").getValue().toString().substring(0,1));
-                }
-
-                if (dataSnapshot.child("CM").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Monday[1] = Integer.parseInt(dataSnapshot.child("OC").getValue().toString().substring(3,4));
-                }
-
-                if (dataSnapshot.child("CT").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Tuesday[1] = Integer.parseInt(dataSnapshot.child("OT").getValue().toString().substring(3,4));
-                }
-                if (dataSnapshot.child("CW").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Wednesday[1] = Integer.parseInt(dataSnapshot.child("OW").getValue().toString().substring(3,4));
-                }
-                if (dataSnapshot.child("CTh").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Thursday[1] = Integer.parseInt(dataSnapshot.child("OTh").getValue().toString().substring(3,4));
-                }
-                if (dataSnapshot.child("CF").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Friday[1] = Integer.parseInt(dataSnapshot.child("OF").getValue().toString().substring(3,4));
-                }
-                if (dataSnapshot.child("CS").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Saturday[1] = Integer.parseInt(dataSnapshot.child("OS").getValue().toString().substring(3,4));
-                }
-                if (dataSnapshot.child("CSu").getValue().toString().equals("Closed")) {
-                    Toast.makeText(ClientHours.this, "Test succesful", Toast.LENGTH_LONG).show();
-                } else {
-                    Sunday[1] = Integer.parseInt(dataSnapshot.child("OSu").getValue().toString().substring(3,4));
-                }
-
-
-
-
-
-
-            }
-
-
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
-
+    public void openClinic(String user){
+        Intent intent = new Intent(this, ClinicPage.class);
+        intent.putExtra("USERNAME", user );
+        startActivity(intent);
+    }
 }
