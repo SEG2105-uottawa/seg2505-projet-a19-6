@@ -40,7 +40,7 @@ public class ClinicPage extends AppCompatActivity {
 
         reff = FirebaseDatabase.getInstance().getReference().child("Clinic").child(username);
 
-        Toast.makeText(ClinicPage.this, username, Toast.LENGTH_LONG).show();
+
 
 
 

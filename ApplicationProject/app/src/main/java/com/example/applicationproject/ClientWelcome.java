@@ -91,10 +91,11 @@ public class ClientWelcome extends AppCompatActivity {
                             if (name.equals(String.valueOf(dsp.child("name").getValue()))){
 
                                 openClinic(dsp.getKey());
-                            } else {
-                                Toast.makeText(ClientWelcome.this, "Invalid name", Toast.LENGTH_LONG ).show();
+                                return;
                             }
                         }
+
+                        Toast.makeText(ClientWelcome.this, "Invalid name", Toast.LENGTH_LONG ).show();
                     }
 
                     @Override
