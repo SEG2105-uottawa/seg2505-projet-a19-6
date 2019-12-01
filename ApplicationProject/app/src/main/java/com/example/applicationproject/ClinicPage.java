@@ -17,6 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class ClinicPage extends AppCompatActivity {
 
     TextView tvWelcome, tvCurrent, tvTime;
@@ -43,7 +46,61 @@ public class ClinicPage extends AppCompatActivity {
 
         reff = FirebaseDatabase.getInstance().getReference().child("Clinic").child(username);
 
-        Toast.makeText(ClinicPage.this, username, Toast.LENGTH_LONG).show();
+        final Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+        final int currentDate = Integer.parseInt(format1.format(calendar.getTime()));
+        SimpleDateFormat format = new SimpleDateFormat("HHmm");
+        final int currentTime = Integer.parseInt(format.format(calendar.getTime()));
+        final int currentHour = Integer.parseInt(format.format(calendar.getTime()).substring(0,2));
+        final int currentMinute = Integer.parseInt(format.format(calendar.getTime()).substring(2));
+
+
+        reff.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int waitTime = 0;
+                int tempHour = currentHour;
+                int tempMinute = currentMinute;
+                for (DataSnapshot dsp : dataSnapshot.child("Booking").getChildren()){
+                    int date = Integer.parseInt(dsp.getKey().substring(0,8));
+                    int hour = Integer.parseInt(dsp.getKey().substring(8,10));
+                    int minute = Integer.parseInt(dsp.getKey().substring(10));
+                    if (currentDate == date){
+                        if (tempMinute < 45){
+                            if (tempHour == hour && minute >= tempMinute && minute <= (tempMinute+15)) {
+                                    waitTime += 15 + (minute - tempMinute);
+
+                            }
+                            if(tempMinute >= 15){
+                                if (tempHour == hour && (minute + 15) > tempMinute && (minute + 15) < (tempMinute +15)){
+                                    waitTime += (minute + 15) - tempMinute;
+                                }
+                            } else if(tempHour == hour+1 && (minute + 15) > 60 && ((minute + 15)-60) > tempMinute && ((minute + 15)-60) < (tempMinute+15)){
+                                waitTime += ((minute + 15)-60) - tempMinute;
+                            }
+                        } else{
+                            if (tempHour == hour && (minute + 15) > tempMinute && (minute + 15) < (tempMinute+15) ){
+                                waitTime += (minute + 15) - tempMinute;
+                            } else if (tempHour == hour && minute >= tempMinute && minute <= (tempMinute+15)){
+                                waitTime += 15 + (minute - tempMinute);
+                            } else if (tempHour == hour-1 && ((tempMinute+15)>60 && minute < tempMinute && minute < (tempMinute + 15)-60)){
+                                waitTime += (60-tempMinute) + minute + 15;
+                                }
+                            }
+                        }
+                        tempMinute += waitTime;
+                    }
+                tvTime.setText(waitTime + " minutes");
+                }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+
+
 
 
 
@@ -65,6 +122,47 @@ public class ClinicPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openBooking(username);
+            }
+        });
+
+
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reff.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        int waitTime = 0;
+                        int tempHour = currentHour;
+                        int tempMinute = currentMinute;
+                        for (DataSnapshot dsp : dataSnapshot.child("Booking").getChildren()){
+                            int date = Integer.parseInt(dsp.getKey().substring(0,8));
+                            int hour = Integer.parseInt(dsp.getKey().substring(8,10));
+                            int minute = Integer.parseInt(dsp.getKey().substring(10));
+                            if (currentDate == date){
+                                if (tempMinute < 45){
+                                    if(tempMinute >= 15){
+                                        if (tempHour == hour && minute >= tempMinute && minute <= (tempMinute+15)) {
+                                            waitTime += 15 + (minute - tempMinute);
+
+                                        }
+                                        if (tempHour == hour && (minute + 15) > tempMinute && (minute + 15) < (tempMinute +15)){
+                                            waitTime += (minute + 15) - tempMinute;
+
+                                        }
+                                    }
+                                }
+                            }
+                            tempMinute += waitTime;
+                        }
+                        tvTime.setText(waitTime + " minutes");
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
     }
