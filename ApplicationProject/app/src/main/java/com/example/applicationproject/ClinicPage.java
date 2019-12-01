@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class ClinicPage extends AppCompatActivity {
     Button btnBook, btnRefresh;
     Intent intent;
     String username, name;
+    RatingBar btnRatingBar;
     DatabaseReference reff;
 
     @Override
@@ -34,6 +36,7 @@ public class ClinicPage extends AppCompatActivity {
         tvTime = (TextView)findViewById(R.id.tvTime);
         btnRefresh = (Button)findViewById(R.id.btnRefresh);
         btnBook = (Button)findViewById(R.id.btnBook);
+        btnRatingBar = (RatingBar)findViewById(R.id.btnRatingBar);
 
         intent = getIntent();
         username = intent.getStringExtra("USERNAME");
