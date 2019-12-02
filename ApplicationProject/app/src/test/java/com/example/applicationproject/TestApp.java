@@ -7,6 +7,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import static org.junit.Assert.*;
 
 
@@ -71,6 +74,42 @@ public class TestApp{
         Clinic clinic = new Clinic();
         clinic.setPhoneNum("819-123-4567");
         System.out.println(clinic.getPhoneNum());
+    }
+
+    @Test
+    public void calendarTestDateFormat(){
+        try {
+            final Calendar calendar = Calendar.getInstance();
+
+            SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+            System.out.println("Test successful");
+        } catch (Exception  e) {
+            System.out.println("Test failed");
+        }
+
+    }
+
+    @Test
+    public void calendarTestTimeFormat(){
+        try{
+            final Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat format = new SimpleDateFormat("HHmm");
+            System.out.println("Test successful");
+        } catch (Exception e){
+            System.out.println("Test failed");
+        }
+    }
+
+    @Test
+    public void timeFormatDefault(){
+        try{
+            final Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat format = new SimpleDateFormat();
+            System.out.println("Test successful");
+        } catch (Exception e){
+            System.out.println("Test failed");
+        }
+
     }
 
 
