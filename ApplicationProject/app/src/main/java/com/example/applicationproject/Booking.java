@@ -187,54 +187,7 @@ public class Booking extends AppCompatActivity {
                 });
 
 
-                /*try {
-                    if ((Integer.parseInt(currentDate) < Integer.parseInt(date)) || (Integer.parseInt(currentDate) == Integer.parseInt(date) && Integer.parseInt(currentTime) <= time)) {
 
-
-                        reff.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                int flag = 0;
-                                for (DataSnapshot dsp : dataSnapshot.child("Booking").getChildren()) {
-                                    int minute = Integer.parseInt((date + time).substring(10));
-                                    int fireMinute = Integer.parseInt(dsp.getKey().substring(10));
-                                    int fireMinutePlusFifteen = Integer.parseInt(dsp.getKey().substring(10)) + 15;
-                                    String choseDate = (date + time).substring(0, 10);
-                                    String fireDate = dsp.getKey().substring(0, 10);
-                                    if (fireMinutePlusFifteen >= 60) {
-                                        if (choseDate.equals(fireDate) && minute >= 45) {
-                                            Toast.makeText(Booking.this, "This time is already taken", Toast.LENGTH_LONG).show();
-
-
-                                            flag = 1;
-                                            break;
-                                        }
-                                    } else if ((minute >= fireMinute) && (choseDate.equals(fireDate)) && (minute <= fireMinutePlusFifteen)) {
-                                        Toast.makeText(Booking.this, "This time is already taken", Toast.LENGTH_LONG).show();
-
-                                        flag = 1;
-                                        break;
-                                    }
-                                }
-                                if (flag == 0) {
-                                    reff.child("Booking").child(date + time).setValue(date + time + Login.username);
-                                    Toast.makeText(Booking.this, "Booking made", Toast.LENGTH_LONG).show();
-                                    finish();
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-                    } else {
-                        Toast.makeText(Booking.this, "You cannot choose a date from the past", Toast.LENGTH_LONG).show();
-                    }
-                } catch (Exception e){
-                    Toast.makeText(Booking.this, "Be sure to enter a date and a time", Toast.LENGTH_LONG).show();
-                }*/
             }
         });
     }
@@ -271,6 +224,7 @@ public class Booking extends AppCompatActivity {
                         }
                         if (flag == 0) {
                             reff.child("Booking").child(date + time).setValue(date + time + Login.username);
+                            Toast.makeText(Booking.this, "Thank you for booking with us", Toast.LENGTH_LONG).show();
                         }
 
                     }
