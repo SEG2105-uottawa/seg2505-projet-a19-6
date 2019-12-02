@@ -192,6 +192,8 @@ public class Booking extends AppCompatActivity {
                                 }
                                 if (flag == 0) {
                                     reff.child("Booking").child(date + time).setValue(date + time + Login.username);
+                                    Toast.makeText(Booking.this, "Booking made", Toast.LENGTH_LONG).show();
+                                    finish();
                                 }
 
                             }
