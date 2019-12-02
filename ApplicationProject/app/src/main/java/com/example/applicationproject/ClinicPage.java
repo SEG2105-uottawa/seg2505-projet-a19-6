@@ -23,10 +23,9 @@ import java.util.Calendar;
 public class ClinicPage extends AppCompatActivity {
 
     TextView tvWelcome, tvCurrent, tvTime;
-    Button btnBook, btnRefresh;
+    Button btnBook, btnRefresh, btnRating;
     Intent intent;
     String username, name;
-    RatingBar btnRatingBar;
     DatabaseReference reff;
 
     @Override
@@ -39,7 +38,7 @@ public class ClinicPage extends AppCompatActivity {
         tvTime = (TextView)findViewById(R.id.tvTime);
         btnRefresh = (Button)findViewById(R.id.btnRefresh);
         btnBook = (Button)findViewById(R.id.btnBook);
-        btnRatingBar = (RatingBar)findViewById(R.id.btnRatingBar);
+        btnRating = (Button)findViewById(R.id.btnRating);
 
         intent = getIntent();
         username = intent.getStringExtra("USERNAME");
@@ -125,6 +124,13 @@ public class ClinicPage extends AppCompatActivity {
             }
         });
 
+        btnRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRating(username);
+            }
+        });
+
 
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +175,12 @@ public class ClinicPage extends AppCompatActivity {
 
     public void openBooking(String user){
         Intent intent = new Intent(this, Booking.class);
+        intent.putExtra("USERNAME", user );
+        startActivity(intent);
+
+    }
+    public void openRating(String user){
+        Intent intent = new Intent(this, Rating.class);
         intent.putExtra("USERNAME", user );
         startActivity(intent);
 
